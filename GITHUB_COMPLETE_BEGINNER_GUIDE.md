@@ -38,11 +38,13 @@ Git is the tool that connects your computer to GitHub.
 2. Click **"Download for Windows"**
 3. Run the downloaded installer (`Git-2.x.x-64-bit.exe`)
 
+
+
 ## Step 2: Install Git (Use These Settings)
 Click through the installer with these specific choices:
 - ✅ **Select Components**: Keep all defaults checked
 - ✅ **Default editor**: Keep "Use Vim" (don't worry, we won't use it)
-- ✅ **Branch name**: Choose "Override the default branch name" → Type `main`
+- ✅ **Branch name**: OPTIONAL - Choose "Override the default branch name" → Type `main` (if you skipped this, no problem!)
 - ✅ **PATH environment**: Choose "Git from the command line and also from 3rd-party software"
 - ✅ **HTTPS transport**: Choose "Use the OpenSSL library"
 - ✅ **Line ending conversions**: Choose "Checkout Windows-style, commit Unix-style"
@@ -99,11 +101,26 @@ git commit -m "Initial commit - Collaborative Angular App"
 git branch -M main
 
 # Step 5: Connect to your GitHub repository
-# ⚠️ IMPORTANT: REPLACE 'YOURUSERNAME' with your actual GitHub username!
-# For example, if your username is 'johnsmith2024', the command should be:
+# 🛑 STOP! DO NOT copy the line below as-is!
+# You MUST replace YOURUSERNAME with your actual GitHub username first!
+# 
+# Find your GitHub username:
+# 1. Go to github.com and sign in
+# 2. Look at the top-right corner - you'll see your username
+# 3. Replace YOURUSERNAME in the command below with that username
+#
+# Examples:
+# If your username is 'johnsmith2024':
 # git remote add origin https://github.com/johnsmith2024/SyncUI.git
+# If your username is 'mary-developer':
+# git remote add origin https://github.com/mary-developer/SyncUI.git
 
-git remote add origin https://github.com/YOURUSERNAME/SyncUI.git
+# If you get "remote origin already exists" error, first run:
+# git remote remove origin
+
+# NOW replace YOURUSERNAME below and run the command:
+# For user 'randre99', the correct command is:
+git remote add origin https://github.com/randre99/SyncUI.git
 
 # Step 6: Upload to GitHub
 git push -u origin main
@@ -123,7 +140,10 @@ git push -u origin main
 
 Your app has two parts: frontend (Angular) and backend (Socket.IO server). Let's deploy the backend first.
 
-## Option A: Railway (Recommended - Easier)
+## ⚠️ Multiple GitHub Accounts Issue
+If Railway tries to connect to your work GitHub instead of personal, use **Option B: Render** below, or follow the account switching steps in the troubleshooting section.
+
+## Option A: Railway
 
 ### Step 1: Sign Up for Railway
 1. Go to [railway.app](https://railway.app)
@@ -222,7 +242,7 @@ git push
 # PART 6: Deploy Frontend to GitHub Pages (5 minutes)
 
 ## Step 1: Enable GitHub Pages
-1. Go to your GitHub repository: `https://github.com/YOURUSERNAME/SyncUI`
+1. Go to your GitHub repository: `https://github.com/randre99/SyncUI`
 2. Click **"Settings"** tab (at the top of your repository)
 3. Scroll down to **"Pages"** in the left sidebar
 4. Under **"Source"**, select **"GitHub Actions"** (NOT "Deploy from a branch")
@@ -242,9 +262,9 @@ git push
 
 Your collaborative Angular app is now live at:
 
-**`https://YOURUSERNAME.github.io/SyncUI/`**
+**`https://randre99.github.io/SyncUI/`**
 
-Replace `YOURUSERNAME` with your actual GitHub username.
+This is your permanent URL that you can share with collaborators worldwide!
 
 ## Test Your Deployment
 
@@ -260,6 +280,18 @@ Replace `YOURUSERNAME` with your actual GitHub username.
 ---
 
 # 🔧 Troubleshooting
+
+## Railway Connects to Wrong GitHub Account
+**Problem**: Railway tries to connect to your work GitHub instead of personal account (randre99).
+
+**Solution**:
+1. **Sign out of Railway completely**: Go to railway.app → Profile picture → "Sign out"
+2. **Clear browser data**: Press `Ctrl + Shift + Delete` → Clear "Cookies and other site data" for railway.app
+3. **Use incognito window**: Open new private/incognito browser window
+4. **Sign into personal GitHub first**: Go to github.com → Make sure you're signed in as `randre99`
+5. **Then go to Railway**: railway.app → "Login with GitHub" → Should now use personal account
+
+**Alternative**: Use **Render instead** (Option B in Part 4) - it's less likely to have this account conflict.
 
 ## "Repository not found" Error
 - Double-check your GitHub username in the git remote URL
