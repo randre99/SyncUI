@@ -23,8 +23,11 @@ jobs:
     - name: Install dependencies
       run: npm install
       
+    - name: Fix Angular CLI permissions
+      run: chmod +x ./node_modules/.bin/ng
+      
     - name: Build Angular app
-      run: ./node_modules/.bin/ng build --configuration production --base-href "/SyncUI/"
+      run: node ./node_modules/@angular/cli/bin/ng.js build --configuration production --base-href "/SyncUI/"
       
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
