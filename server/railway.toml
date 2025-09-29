@@ -1,0 +1,11 @@
+# Railway Deployment Configuration
+# This file tells Railway how to deploy your Socket.IO server
+
+[build]
+command = "npm install"
+
+[start]  
+command = "npm start"
+
+[env]
+NODE_ENV = "production"

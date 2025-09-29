@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Connection Test</title>
+</head>
+<body>
+    <h1>Collaboration Connection Test</h1>
+    <div id="status">Testing connections...</div>
+    <div id="details"></div>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+        const detailsDiv = document.getElementById('details');
+        
+        function addLog(message) {
+            detailsDiv.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+        }
+
+        // Test Angular server
+        fetch('http://localhost:4200')
+            .then(response => {
+                addLog('✅ Angular server reachable (status: ' + response.status + ')');
+                return testSocketIO();
+            })
+            .catch(error => {
+                addLog('❌ Angular server not reachable: ' + error.message);
+                return testSocketIO();
+            });
+
+        // Test Socket.IO server
+        function testSocketIO() {
+            fetch('http://localhost:3001/health')
+                .then(response => response.json())
+                .then(data => {
+                    addLog('✅ Socket.IO server reachable: ' + JSON.stringify(data));
+                    testWebSocket();
+                })
+                .catch(error => {
+                    addLog('❌ Socket.IO server not reachable: ' + error.message);
+                });
+        }
+
+        // Test WebSocket connection
+        function testWebSocket() {
+            addLog('🔌 Testing WebSocket connection...');
+            
+            const script = document.createElement('script');
+            script.src = 'http://localhost:3001/socket.io/socket.io.js';
+            script.onload = function() {
+                const socket = io('http://localhost:3001');
+                
+                socket.on('connect', function() {
+                    addLog('✅ WebSocket connected with ID: ' + socket.id);
+                    statusDiv.innerHTML = '✅ All connections working!';
+                    socket.disconnect();
+                });
+                
+                socket.on('connect_error', function(error) {
+                    addLog('❌ WebSocket connection error: ' + error.message);
+                    statusDiv.innerHTML = '❌ WebSocket connection failed';
+                });
+            };
+            
+            script.onerror = function() {
+                addLog('❌ Could not load Socket.IO client library');
+                statusDiv.innerHTML = '❌ Socket.IO client library not accessible';
+            };
+            
+            document.head.appendChild(script);
+        }
+
+        // Browser detection
+        addLog('🔍 Browser: ' + navigator.userAgent);
+        addLog('🔍 Cookies enabled: ' + navigator.cookieEnabled);
+        addLog('🔍 Local storage available: ' + (typeof Storage !== 'undefined'));
+    </script>
+</body>
+</html>

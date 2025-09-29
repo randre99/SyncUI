@@ -1,0 +1,12 @@
+# Render deployment configuration
+# For alternative deployment to Render.com
+
+services:
+  - type: web
+    name: syncui-server
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
