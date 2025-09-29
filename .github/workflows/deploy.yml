@@ -24,7 +24,7 @@ jobs:
       run: npm install
       
     - name: Build Angular app
-      run: npx ng build --configuration production --base-href "/SyncUI/"
+      run: ./node_modules/.bin/ng build --configuration production --base-href "/SyncUI/"
       
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
