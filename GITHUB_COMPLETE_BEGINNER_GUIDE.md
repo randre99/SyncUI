@@ -99,7 +99,10 @@ git commit -m "Initial commit - Collaborative Angular App"
 git branch -M main
 
 # Step 5: Connect to your GitHub repository
-# REPLACE 'YOURUSERNAME' with your actual GitHub username!
+# ⚠️ IMPORTANT: REPLACE 'YOURUSERNAME' with your actual GitHub username!
+# For example, if your username is 'johnsmith2024', the command should be:
+# git remote add origin https://github.com/johnsmith2024/SyncUI.git
+
 git remote add origin https://github.com/YOURUSERNAME/SyncUI.git
 
 # Step 6: Upload to GitHub
