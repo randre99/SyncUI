@@ -33,9 +33,14 @@ jobs:
     - name: Build Angular app
       run: node ./node_modules/@angular/cli/bin/ng.js build --configuration production --base-href "/SyncUI/"
       
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist/collaborative-ui-sync
+        path: ./dist/collaborative-ui-sync
+        
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
